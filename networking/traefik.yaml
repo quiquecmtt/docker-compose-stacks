@@ -1,9 +1,11 @@
-version: "2"
+version: "3.9"
 
 services:
   traefik:
     image: "traefik"
     container_name: "traefik"
+    profiles:
+      - traefik
     command:
       #- "--log.level=DEBUG"
       - "--api.insecure=true"
