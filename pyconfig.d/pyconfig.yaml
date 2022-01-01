@@ -1,0 +1,29 @@
+---
+enableTraefik: &traefik True
+enableUIDGID: False
+
+# All files used except docker-compose.* files
+stacks:
+  databases:
+    files:
+      - mongo.yaml
+    profiles: {}
+  file-sharing:
+    files:
+      - filebrowser.yaml
+      - filezilla.yaml
+    profiles: {}
+  management:
+    files:
+      - portainer.yaml
+      - watchtower.yaml
+    profiles: {}
+  networking:
+    files:
+      - pihole.yaml
+      - traefik.yaml
+      - wireguard.yaml
+    profiles:
+      traefik: *traefik
+      
+    
