@@ -1,2 +1,9 @@
 version: "2"
 
+services:
+  mongodb:
+    ports:
+      - 27017:27017
+  mongo-express:
+    ports:
+      - 8084:8081

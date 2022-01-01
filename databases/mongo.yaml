@@ -1,10 +1,10 @@
 version: "2"
 
 services:
-  mongo:
+  mongodb:
     image: mongo:${MONGOTAG:-latest}
-    hostname: mongo
-    container_name: mongo
+    hostname: mongodb
+    container_name: mongodb
     expose:
       - 27017
     environment:
@@ -19,7 +19,10 @@ services:
     expose:
       - 8081
     environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
       ME_CONFIG_MONGODB_ADMINUSERNAME: *mongorootuser
       ME_CONFIG_MONGODB_ADMINPASSWORD: *mongorootpass
-      ME_CONFIG_MONGODB_URL: mongodb://${MONGOROOTUSER:-root}:${MONGOROOTPASS:-mongorootpass}@mongo
+      ME_CONFIG_BASICAUTH_USERNAME: *mongorootuser
+      ME_CONFIG_BASICAUTH_PASSWORD: *mongorootpass
     restart: unless-stopped

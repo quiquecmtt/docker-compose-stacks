@@ -1,1 +1,30 @@
 version: "2"
+
+services:
+  mongodb:
+    networks:
+      databases:
+    ports:
+      - 27017:27017
+  mongo-express:
+    networks:
+      traefik:
+      databases:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mongo-express.rule=Host(`mongo.${FQDN:?err}`)"
+      - "traefik.http.services.mongo-express.loadbalancer.server.port=8081"
+      - "traefik.docker.network=traefik"
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  databases:
+    name: databases
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.4.0/24
+        gateway: 172.20.4.1
