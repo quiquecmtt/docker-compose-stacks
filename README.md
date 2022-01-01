@@ -4,9 +4,9 @@ This repo tries make it easy to deploy multiple stacks in simple steps.
 ## Full deploy instructions
 1. Configure environment variables to generate `.env` files.
 ```console
-$ mv envvars.yaml.tpl envvars.yaml
-$ vim envvars.yaml
-$ vim pyconfig.yaml
+$ mv pyconfig.d/envvars.yaml.tpl pyconfig.d/envvars.yaml
+$ vim pyconfig.d/envvars.yaml
+$ vim pyconfig.d/pyconfig.yaml
 ```
 2. Run Python script `create_env_files.py`.
 ```console
