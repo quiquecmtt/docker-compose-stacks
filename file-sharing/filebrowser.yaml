@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:${FILEBROWSERTAG:-latest}
+    hostname: filebrowser
+    container_name: filebrowser
+    expose:
+      - 80
+      - 443
+    environment:
+      FB_DATABASE: /db/database.db
+    volumes:
+      - filebr-data:/srv:rw
+      - filebr-db:/db:rw
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped

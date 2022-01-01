@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  portainer:
+    extends:
+      file: portainer.yaml
+      service: portainer
+  watchtower:
+    extends:
+      file: watchtower.yaml
+      service: watchtower
+  
+volumes:
+  portainer-data:

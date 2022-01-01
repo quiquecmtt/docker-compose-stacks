@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  filezilla:
+    image: lscr.io/linuxserver/filezilla:${FILEZILLATAG:-latest}
+    container_name: filezilla
+    hostname: filezilla
+    expose:
+      - 3000
+    environment:
+      PUID: ${HUID:-1000}
+      PGID: ${HGID:-1000}
+      TZ: ${TIMEZONE:-UTC}
+    volumes:
+      - filezilla-config:/config
+    restart: unless-stopped

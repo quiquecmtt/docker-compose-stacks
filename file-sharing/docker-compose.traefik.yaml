@@ -1,0 +1,34 @@
+version: "2"
+
+services:
+  filebrowser:
+    networks:
+      file-sharing:
+      traefik:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.filebrowser.rule=Host(`filebr.${FQDN:?err}`)"
+      - "traefik.http.services.filebrowser.loadbalancer.server.port=80"
+  filezilla:
+    networks:
+      file-sharing:
+      traefik:
+    ports:
+      - 3000:3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.filezilla.rule=Host(`filezilla.${FQDN:?err}`)"
+      - "traefik.http.services.filezilla.loadbalancer.server.port=3000"
+  
+networks:
+  traefik:
+    external: true
+    name: traefik
+  file-sharing:
+    name: file-sharing
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.5.0/24
+        gateway: 172.20.5.1

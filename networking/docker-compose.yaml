@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  pihole:
+    extends:
+      file: pihole.yaml
+      service: pihole
+    
+  traefik:
+    extends:
+      file: traefik.yaml
+      service: traefik
+    
+  wireguard:
+    extends:
+      file: wireguard.yaml
+      service: wireguard
+    
+volumes:
+  pihole-data:
+  pihole-dnsmasqd:
+  wg-conf:

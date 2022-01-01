@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+  mongo:
+    image: mongo:${MONGOTAG:-latest}
+    hostname: mongo
+    container_name: mongo
+    expose:
+      - 27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: &mongorootuser ${MONGOROOTUSER:-root}
+      MONGO_INITDB_ROOT_PASSWORD: &mongorootpass ${MONGOROOTPASS:-mongorootpass}
+    restart: unless-stopped
+
+  mongo-express:
+    image: mongo-express:${MONGOEXPRESSTAG:-latest}
+    hostname: mongo-express
+    container_name: mongo-express
+    expose:
+      - 8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: *mongorootuser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: *mongorootpass
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGOROOTUSER:-root}:${MONGOROOTPASS:-mongorootpass}@mongo
+    restart: unless-stopped

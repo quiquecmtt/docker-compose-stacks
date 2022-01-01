@@ -1,0 +1,27 @@
+version: "2"
+
+services:
+  portainer:
+    networks:
+      traefik:
+      management:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.${FQDN:?err}`)"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+  watchtower:
+    networks:
+      management:
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  management:
+    name: management
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.3.0/24
+        gateway: 172.20.3.1

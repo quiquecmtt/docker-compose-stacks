@@ -1,0 +1,58 @@
+version: "2"
+
+services:
+
+  pihole:
+    networks:
+      networking:
+        ipv4_address: ${PIHOLENETIP}
+      traefik:
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pihole.rule=Host(`pihole.${FQDN:?err}`)"
+      - "traefik.http.services.pihole.loadbalancer.server.port=80"
+  traefik:
+    networks:
+      networking:
+        ipv4_address: ${TRAEFIKNETIP}
+      traefik:
+    ports:
+      - 80:80
+      - 8080:8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.zeph.io`)"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+  wireguard:
+    networks:
+      networking:
+        ipv4_address: ${WGNETIP}
+      traefik:
+    ports:
+      - 51820:51820
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wireguard.rule=Host(`wireguard.${FQDN:?err}`)"
+      - "traefik.http.services.wireguard.loadbalancer.server.port=51821"
+  
+networks:
+  networking:
+    name: networking
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.1.0/24
+        gateway: 172.20.1.1
+  traefik:
+    name: traefik
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.2.0/24
+        gateway: 172.20.2.1

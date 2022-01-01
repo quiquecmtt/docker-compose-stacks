@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  pihole:
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 8081:80/tcp
+  traefik:
+    ports:
+      - 80:80
+      - 8080:8080
+  wireguard:
+    ports:
+      - 51820:51820/udp
+      - 51821:51821/tcp      

@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  mongo:
+    extends:
+      file: mongo.yaml
+      service: mongo
+    ports:
+      - 27017:27017
+  mongo-express:
+    extends:
+      file: mongo.yaml
+      service: mongo-express
+    ports:
+      - 8084:8081
+  # mysql:
+  # postgres:
+  # redis:

@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  watchtower:
+    image: containrrr/watchtower:${WATCHTOWERTAG:-latest}
+    container_name: watchtower
+    hostname: watchtower
+    environment:
+      TZ: ${TIMEZONE:-UTC}
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_SCHEDULE: "0 0 4 * * *"
+      WATCHTOWER_ROLLING_RESTART: "true"
+      # WATCHTOWER_DEBUG: "true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped

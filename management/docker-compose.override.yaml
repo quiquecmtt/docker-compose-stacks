@@ -1,0 +1,7 @@
+version: "2"
+
+services:
+  portainer:
+    ports:
+      - 9000:9000
+  watchtower:

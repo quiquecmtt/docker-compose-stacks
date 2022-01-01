@@ -1,0 +1,27 @@
+version: "2"
+
+services:
+  wireguard:
+    image: weejewel/wg-easy
+    hostname: wireguard   
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      WG_HOST: ${WGPUBLICIP:?err}
+      PASSWORD: ${WIREGUARDPASS:-wgpass}
+      WG_PORT: ${WGPORT:-51820}
+      WG_PERSISTENT_KEEPALIVE: ${EGKPA:-30}
+      WG_DEFAULT_ADDRESS: ${WGDEFADD:-10.8.0.x}
+      WG_DEFAULT_DNS: ${PIHOLENETIP:-1.1.1.1}
+      WG_ALLOWED_IPS: ${WGAIPS:-0.0.0.0/0, ::/0}
+    expose:
+      - 51820
+      - 51821
+    volumes:
+      - 'wg-conf:/etc/wireguard'
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv4.ip_forward=1
+    restart: unless-stopped

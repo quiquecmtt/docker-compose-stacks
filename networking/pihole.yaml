@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+  pihole:
+    container_name: pihole
+    hostname: pihole
+    image: pihole/pihole:${PIHOLETAG:-latest}
+    expose:
+      - 53
+      - 67
+      - 80
+      - 443
+    environment:
+      TZ: ${TIMEZONE:-UTC}
+      WEBPASSWORD: ${PIHOLEPASS:-piholapass}
+      DNS1: ${PIHOLEDNS1:-1.1.1.1}
+      DNS2: ${PIHOLEDNS2:-8.8.8.8}
+    # Volumes store your data between container upgrades
+    volumes:
+      - pihole-data:/etc/pihole/
+      - pihole-dnsmasqd:/etc/dnsmasq.d/
+    dns:
+      - 127.0.0.1
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
