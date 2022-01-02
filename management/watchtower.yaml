@@ -5,6 +5,8 @@ services:
     image: containrrr/watchtower:${WATCHTOWERTAG:-latest}
     container_name: watchtower
     hostname: watchtower
+    profiles:
+      - watchtower
     environment:
       TZ: ${TIMEZONE:-UTC}
       WATCHTOWER_CLEANUP: "true"

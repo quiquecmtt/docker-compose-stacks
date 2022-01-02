@@ -5,6 +5,8 @@ services:
     image: mongo:${MONGOTAG:-latest}
     hostname: mongodb
     container_name: mongodb
+    profiles:
+      - mongo
     expose:
       - 27017
     environment:
@@ -16,6 +18,8 @@ services:
     image: mongo-express:${MONGOEXPRESSTAG:-latest}
     hostname: mongo-express
     container_name: mongo-express
+    profiles:
+      - mongo
     expose:
       - 8081
     environment:

@@ -5,6 +5,8 @@ services:
     container_name: pihole
     hostname: pihole
     image: pihole/pihole:${PIHOLETAG:-latest}
+    profiles:
+      - pihole
     expose:
       - 53
       - 67

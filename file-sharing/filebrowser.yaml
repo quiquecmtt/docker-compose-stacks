@@ -5,6 +5,8 @@ services:
     image: filebrowser/filebrowser:${FILEBROWSERTAG:-latest}
     hostname: filebrowser
     container_name: filebrowser
+    profiles:
+      - filebrowser
     expose:
       - 80
       - 443

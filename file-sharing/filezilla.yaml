@@ -5,6 +5,8 @@ services:
     image: lscr.io/linuxserver/filezilla:${FILEZILLATAG:-latest}
     container_name: filezilla
     hostname: filezilla
+    profiles:
+      - filezilla
     expose:
       - 3000
     environment:

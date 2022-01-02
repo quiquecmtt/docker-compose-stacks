@@ -5,6 +5,8 @@ services:
     image: weejewel/wg-easy
     hostname: wireguard   
     container_name: wireguard
+    profiles:
+      - wireguard
     cap_add:
       - NET_ADMIN
       - SYS_MODULE

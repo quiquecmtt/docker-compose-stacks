@@ -5,6 +5,8 @@ services:
     image: portainer/portainer-ce:${PORTAINERTAG:-latest}
     container_name: portainer
     hostname: portainer
+    profiles:
+      - portainer
     expose:
       - 9000
     volumes:

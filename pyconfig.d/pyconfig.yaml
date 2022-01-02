@@ -7,17 +7,22 @@ stacks:
   databases:
     files:
       - mongo.yaml
-    profiles: {}
+    profiles:
+      mongo: true
   file-sharing:
     files:
       - filebrowser.yaml
       - filezilla.yaml
-    profiles: {}
+    profiles:
+      filebrowser: true
+      filezilla: false
   management:
     files:
       - portainer.yaml
       - watchtower.yaml
-    profiles: {}
+    profiles: 
+      portainer: true
+      watchtower: true
   networking:
     files:
       - pihole.yaml
@@ -25,5 +30,7 @@ stacks:
       - wireguard.yaml
     profiles:
       traefik: *traefik
+      pihole: true
+      wireguard: true
       
     
