@@ -24,12 +24,26 @@ services:
       traefik:
     ports:
       - 80:80
-      - 8080:8080
+      - 443:443
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.zeph.io`)"
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
       - "traefik.docker.network=traefik"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIKUSERPASS}"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${FQDN:?err}`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+      #HTTPS
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.${FQDN:?err}`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=duckdns"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=${FQDN:?err}"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${FQDN:?err}"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
   wireguard:
     networks:
       networking:

@@ -6,13 +6,15 @@ services:
     container_name: "traefik"
     profiles:
       - traefik
-    command:
-      #- "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+    environment:
+      DUCKDNS_TOKEN: ${DUCKDNSTOKEN:?err}
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik/traefik-conf.yaml:/traefik.yaml"
+      - traefik-cert:/letsencrypt
+    security_opt:
+      - no-new-privileges:true
     restart: unless-stopped
-    
+
+volumes:
+  traefik-cert:
