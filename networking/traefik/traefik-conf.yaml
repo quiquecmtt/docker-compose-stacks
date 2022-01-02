@@ -2,9 +2,9 @@ api:
   dashboard: true
   debug: true
 entryPoints:
-  http:
+  web:
     address: ":80"
-  https:
+  web-secure:
     address: ":443"
 serversTransport:
   insecureSkipVerify: true
@@ -12,6 +12,9 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
+    network: traefik
+  file:
+    filename: /traefik.yaml
 certificatesResolvers:
   duckdns:
     acme:
@@ -23,3 +26,17 @@ certificatesResolvers:
         resolvers:
           - "1.1.1.1:53"
           - "1.0.0.1:53"
+  
+http:
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+  routers:
+    redirect-to-https:
+      entrypoints:
+        - web
+      middlewares:
+        - redirect-to-https
+      rule: "HostRegexp(`{host:.+}`)"
+      service: noop@internal
