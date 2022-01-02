@@ -7,9 +7,11 @@ services:
       management:
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.portainer.entrypoints=web-secure"
       - "traefik.http.routers.portainer.rule=Host(`portainer.${FQDN:?err}`)"
+      - "traefik.http.routers.portainer.tls=true"
+      - "traefik.http.routers.portainer.service=portainer"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
-      - "traefik.docker.network=traefik"
   watchtower:
     networks:
       management:

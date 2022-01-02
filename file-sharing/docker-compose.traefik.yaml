@@ -7,9 +7,11 @@ services:
       traefik:
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.filebrowser.entrypoints=web-secure"
       - "traefik.http.routers.filebrowser.rule=Host(`filebr.${FQDN:?err}`)"
+      - "traefik.http.routers.filebrowser.tls=true"
+      - "traefik.http.routers.filebrowser.service=filebrowser"
       - "traefik.http.services.filebrowser.loadbalancer.server.port=80"
-      - "traefik.docker.network=traefik"
   filezilla:
     networks:
       file-sharing:
@@ -18,9 +20,11 @@ services:
       - 3000:3000
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.filezilla.entrypoints=web-secure"
       - "traefik.http.routers.filezilla.rule=Host(`filezilla.${FQDN:?err}`)"
+      - "traefik.http.routers.filezilla.tls=true"
+      - "traefik.http.routers.filezilla.service=filezilla"
       - "traefik.http.services.filezilla.loadbalancer.server.port=3000"
-      - "traefik.docker.network=traefik"
 
 networks:
   traefik:

@@ -12,9 +12,11 @@ services:
       databases:
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.mongo-express.entrypoints=web-secure"
       - "traefik.http.routers.mongo-express.rule=Host(`mongo.${FQDN:?err}`)"
+      - "traefik.http.routers.mongo-express.tls=true"
+      - "traefik.http.routers.mongo-express.service=mongo-express"
       - "traefik.http.services.mongo-express.loadbalancer.server.port=8081"
-      - "traefik.docker.network=traefik"
 
 networks:
   traefik:

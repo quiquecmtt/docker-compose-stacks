@@ -13,8 +13,10 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
     network: traefik
+    watch: true
   file:
     filename: /traefik.yaml
+    watch: true
 certificatesResolvers:
   duckdns:
     acme:
