@@ -1,3 +1,4 @@
+from types import DynamicClassAttribute
 import yaml, json
 import os, subprocess
 
@@ -56,7 +57,10 @@ def dict_to_env_file(dict, envFilePath):
         if dict['dynamic'] != None:
             for envVar in dict['dynamic']:
                 if envVar in exceptVars: continue
-                envFile.write(f"{envVar}={subprocess.run(dict['dynamic'][envVar].split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout.decode('utf-8').strip()}\n")
+                
+                shCommand = dict['dynamic'][envVar].split() if isinstance(dict['dynamic'][envVar], str) else dict['dynamic'][envVar]
+                shOutput = subprocess.run(shCommand, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout.decode('utf-8').strip()
+                envFile.write(f"{envVar}={shOutput}\n")
         if dict['static'] != None:
             for envVar in dict['static']:
                 if envVar in exceptVars: continue
