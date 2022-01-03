@@ -5,15 +5,15 @@ all:
     HUID: id -u
     HGID: id -g
   static:
-    FQDN: 
-    ALLPASS: &allpass 
+    FQDN: FQDNHERE
+    ALLPASS: &allpass "PASSWORDHERE"
 
 databases:
   dynamic:
   static:
-    MONGOROOTUSER: 
+    MONGOROOTUSER: root
     MONGOROOTPASS: *allpass
-    MYSQLROOTUSER: 
+    MYSQLROOTUSER: root
     MYSQLROOTPASS: *allpass
   tags:
     MONGOTAG: ""
@@ -34,18 +34,27 @@ management:
     WATCHTOWERTAG: ""
 
 networking:
-  dynamic:
-    WGPUBLICIP: curl -s ifconfig.me
   static:
+    TRAEFIKUSER: &traefikuser admin
+    TRAEFIKPASS: *allpass 
+    DUCKDNSTOKEN: "DUCKDNSTOKENHERE"
     PIHOLEPASS: *allpass
     WIREGUARDPASS: *allpass
     WGPORT: ""
     WGPKA: ""
     WGDEFADD: ""
     WGAIPS: ""
+    TRAEFIKALLOWEDPRIVATEIPS: 127.0.0.1/32,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
     PIHOLENETIP: 172.20.1.53
     TRAEFIKNETIP: 172.20.1.80
     WGNETIP: 172.20.1.51
+  dynamic:
+    PUBLIP: curl -s ifconfig.me
+    TRAEFIKUSERPASS: 
+      - htpasswd
+      - -nb 
+      - *traefikuser 
+      - *allpass
   tags:
     PIHOLETAG: ""
     TRAEFIKTAG: ""
