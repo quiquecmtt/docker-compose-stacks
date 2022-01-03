@@ -6,6 +6,9 @@ entryPoints:
     address: ":80"
   web-secure:
     address: ":443"
+    http:
+      middlewares:
+        - ip-in-whitelist@docker
 serversTransport:
   insecureSkipVerify: true
 providers:
@@ -33,7 +36,7 @@ http:
   middlewares:
     redirect-to-https:
       redirectScheme:
-        scheme: https
+        scheme: https          
   routers:
     redirect-to-https:
       entrypoints:
