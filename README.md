@@ -14,11 +14,11 @@ $ python3 create_env_files.py
 ```
 3. Run Shell script to deploy stacks using `docker-compose`.
 ```console
-$ sh dc-up-all.sh
+$ sh up-all.sh
 ```
 4. If you want to remove all the deployment (except volumes).
 ```console
-$ sh dc-down-all.sh
+$ sh down-all.sh
 ```
 
 ## Host ports
