@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:${VAULTWARDENTAG:-latest}
+    container_name: 
+    hostname: vaultwarden
+    profiles:
+      - vaultwarden
+    expose:
+      - 80
+    volumes:
+      - "vaultwarden-data:/data"
+    restart: unless-stopped
+
+  volumes:
+    vaultwarden-data:

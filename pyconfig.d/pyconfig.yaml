@@ -19,9 +19,11 @@ stacks:
   management:
     files:
       - portainer.yaml
+      - vaultwarden.yml
       - watchtower.yaml
     profiles: 
       portainer: true
+      vaultwarden: true
       watchtower: true
   networking:
     files:
