@@ -13,5 +13,5 @@ services:
       - "vaultwarden-data:/data"
     restart: unless-stopped
 
-  volumes:
-    vaultwarden-data:
+volumes:
+  vaultwarden-data:
