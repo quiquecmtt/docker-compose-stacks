@@ -14,6 +14,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.mongo-express.entrypoints=web-secure"
       - "traefik.http.routers.mongo-express.rule=Host(`mongo.${FQDN:?err}`)"
+      - "traefik.http.routers.mongo-express.middlewares=ip-in-whitelist"
       - "traefik.http.routers.mongo-express.tls=true"
       - "traefik.http.routers.mongo-express.service=mongo-express"
       - "traefik.http.services.mongo-express.loadbalancer.server.port=8081"
