@@ -9,6 +9,8 @@ services:
       - vaultwarden
     expose:
       - 80
+    environment:
+            ADMIN_TOKEN: ${VAULTWARDENPASS:-vaultwardentoken}
     volumes:
       - "vaultwarden-data:/data"
     restart: unless-stopped

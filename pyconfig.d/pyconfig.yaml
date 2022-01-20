@@ -23,7 +23,7 @@ stacks:
       - watchtower.yaml
     profiles: 
       portainer: true
-      vaultwarden: true
+      vaultwarden: false
       watchtower: true
   networking:
     files:
