@@ -5,7 +5,7 @@ on:
       - 'main'
 
 jobs:
-  deploy_docker stacks:
+  deploy_docker_stacks:
     runs-on: ubuntu-latest
     env:
       COMPOSE_CMD: docker-compose up -d
