@@ -1,0 +1,31 @@
+name: Stack Deployer
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  deploy_docker stacks:
+    emv:
+      COMPOSE_CMD: docker-compose up -d
+    steps:
+      - name: Generate YAML with envireonment variables from secret
+        run: echo $ENV_VARS_YAML > envvars.yaml
+        env:
+          ENV_VARS_YAML: ${{ secrets.ENV_VARS_YAML }}
+        working-dir: pyconfig.d
+      - name: Generate environment files from 
+        run: python3 create_env_files.py
+        env:
+          ALLPASS: ${{ secrets.ALLPASS }}
+          FQDN: ${{ secrets.FQDN }}
+          DUCKDNSTOKEN: ${{ secrets.DUCKDNSTOKEN }}
+      - name: Deploy Networking stack
+        working-directory: networking
+        run: ${{ COMPOSE_CMD }}
+      - name: Deploy Management stack
+        working-dicrectory: management
+        run: ${{ COMPOSE_CMD }}
+      - name: Deploy File Sharing stack
+        working-dicrectory: management
+        run: ${{ COMPOSE_CMD }}
