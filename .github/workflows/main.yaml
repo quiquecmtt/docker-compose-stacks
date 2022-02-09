@@ -22,10 +22,10 @@ jobs:
           DUCKDNSTOKEN: ${{ secrets.DUCKDNSTOKEN }}
       - name: Deploy Networking stack
         working-directory: networking
-        run: ${{ COMPOSE_CMD }}
+        run: $COMPOSE_CMD
       - name: Deploy Management stack
         working-dicrectory: management
-        run: ${{ COMPOSE_CMD }}
+        run: $COMPOSE_CMD
       - name: Deploy File Sharing stack
         working-dicrectory: management
-        run: ${{ COMPOSE_CMD }}
+        run: $COMPOSE_CMD
