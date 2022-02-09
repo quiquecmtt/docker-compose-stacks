@@ -13,10 +13,11 @@ jobs:
       - name: Pull last commit on main
         uses: actions/checkout@main
       - name: Expand sensitive data
+        working-directory: pyconfig.d
         run: |
-          sed 's@\$FQDN@'"${{ secrets.FQDN }}"'@'
-          sed 's@\$DUCKDNSTOKE@'"${{ secrets.DUCKDNSTOKEN }}"'@'
-          sed 's@\$ALLPASS@'"${{ secrets.ALLPASS }}"'@'
+          sed 's@\$FQDN@'"${{ secrets.FQDN }}"'@' envvars.yaml
+          sed 's@\$DUCKDNSTOKE@'"${{ secrets.DUCKDNSTOKEN }}"'@' envvars.yaml
+          sed 's@\$ALLPASS@'"${{ secrets.ALLPASS }}"'@' envvars.yaml
       - name: Generate environment files from 
         run: python3 create_env_files.py
         env:
