@@ -15,9 +15,9 @@ jobs:
       - name: Expand sensitive data
         working-directory: pyconfig.d
         run: |
-          sed -i 's@\$FQDN@''${{ secrets.FQDN }}''@' envvars.yaml
-          sed -i 's@\$DUCKDNSTOKE@''${{ secrets.DUCKDNSTOKEN }}''@' envvars.yaml
-          sed -i 's@\$ALLPASS@''${{ secrets.ALLPASS }}''@' envvars.yaml
+          sed -i 's/\$FQDN/${{ secrets.FQDN }}/' envvars.yaml
+          sed -i 's/\$DUCKDNSTOKEN/${{ secrets.DUCKDNSTOKEN }}' envvars.yaml
+          sed -i 's/\$ALLPASS/${{ secrets.ALLPASS }}/' envvars.yaml
       - name: Generate environment files from 
         run: python3 create_env_files.py
         env:
