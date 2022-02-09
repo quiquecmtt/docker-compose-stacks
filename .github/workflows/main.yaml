@@ -24,8 +24,8 @@ jobs:
         working-directory: networking
         run: $COMPOSE_CMD
       - name: Deploy Management stack
-        working-dicrectory: management
+        working-directory: management
         run: $COMPOSE_CMD
       - name: Deploy File Sharing stack
-        working-dicrectory: management
+        working-directory: management
         run: $COMPOSE_CMD
