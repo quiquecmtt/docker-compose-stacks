@@ -10,6 +10,8 @@ jobs:
     env:
       COMPOSE_CMD: docker-compose up -d
     steps:
+      - name: Pull last commit on main
+        uses: actions/checkout@main
       - name: Generate YAML with envireonment variables from secret
         run: echo $ENV_VARS_YAML > envvars.yaml
         env:
