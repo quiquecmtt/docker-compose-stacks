@@ -14,7 +14,7 @@ jobs:
         run: echo $ENV_VARS_YAML > envvars.yaml
         env:
           ENV_VARS_YAML: ${{ secrets.ENV_VARS_YAML }}
-        working-dir: pyconfig.d
+        working-directory: pyconfig.d
       - name: Generate environment files from 
         run: python3 create_env_files.py
         env:
