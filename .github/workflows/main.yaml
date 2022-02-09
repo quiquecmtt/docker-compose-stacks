@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy_docker stacks:
-    emv:
+    env:
       COMPOSE_CMD: docker-compose up -d
     steps:
       - name: Generate YAML with envireonment variables from secret
