@@ -1,0 +1,60 @@
+---
+all:
+  dynamic:
+    TIMEZONE: cat /etc/timezone
+    HUID: id -u
+    HGID: id -g
+  static:
+    FQDN: $FQDN
+    ALLPASS: &allpass $ALLPASS
+
+databases:
+  dynamic:
+  static:
+    MONGOROOTUSER: root
+    MONGOROOTPASS: *allpass
+    MYSQLROOTUSER: root
+    MYSQLROOTPASS: *allpass
+  tags:
+    MONGOTAG: ""
+    MONGOEXPRESSTAG: ""
+
+file-sharing:
+  dynamic:
+  static:
+  tags:
+    FILEBROWSERTAG: ""
+    FILEZILLATAG: ""
+
+management:
+  dynamic:
+  static:
+  tags:
+    PORTAINERTAG: ""
+    WATCHTOWERTAG: ""
+
+networking:
+  static:
+    TRAEFIKUSER: &traefikuser admin
+    TRAEFIKPASS: *allpass 
+    DUCKDNSTOKEN: $DUCKDNSTOKEN
+    PIHOLEPASS: *allpass
+    WIREGUARDPASS: *allpass
+    WGPORT: ""
+    WGPKA: ""
+    WGDEFADD: ""
+    WGAIPS: ""
+    TRAEFIKALLOWEDPRIVATEIPS: 127.0.0.1/32,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+    PIHOLENETIP: 172.20.1.53
+    TRAEFIKNETIP: 172.20.1.80
+    WGNETIP: 172.20.1.51
+  dynamic:
+    PUBLIP: curl -s ifconfig.me
+    TRAEFIKUSERPASS: 
+      - htpasswd
+      - -nb 
+      - *traefikuser 
+      - *allpass
+  tags:
+    PIHOLETAG: ""
+    TRAEFIKTAG: ""

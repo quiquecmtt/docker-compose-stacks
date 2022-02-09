@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Pull last commit on main
         uses: actions/checkout@main
+      - name: Expand sensitive data
+        run: |
+          sed 's@\$FQDN@'"${{ secrets.FQDN }}"'@'
+          sed 's@\$DUCKDNSTOKE@'"${{ secrets.DUCKDNSTOKEN }}"'@'
+          sed 's@\$ALLPASS@'"${{ secrets.ALLPASS }}"'@'
+        
       - name: Generate YAML with envireonment variables from secret
         run: echo $ENV_VARS_YAML > envvars.yaml
         env:
