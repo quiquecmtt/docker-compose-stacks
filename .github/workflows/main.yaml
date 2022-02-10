@@ -31,5 +31,5 @@ jobs:
         working-directory: management
         run: $COMPOSE_CMD
       - name: Deploy File Sharing stack
-        working-directory: management
+        working-directory: file-sharing
         run: $COMPOSE_CMD
