@@ -49,10 +49,11 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
 
   wireguard:
-    # networks:
-    #   networking:
-    #     ipv4_address: ${WGNETIP}
-    #   traefik:
+    networks:
+      networking:
+        ipv4_address: ${WGNETIP}
+      traefik:
+      hostnet:
     network_mode: host
     # ports:
     #   - 51820:51820/udp
@@ -83,3 +84,6 @@ networks:
       config:
       - subnet: 172.20.2.0/24
         gateway: 172.20.2.1
+  hostnet:
+    external:
+      name: host
