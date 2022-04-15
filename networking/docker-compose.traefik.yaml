@@ -54,7 +54,6 @@ services:
         ipv4_address: ${WGNETIP}
       traefik:
       hostnet:
-    network_mode: host
     # ports:
     #   - 51820:51820/udp
     labels:
