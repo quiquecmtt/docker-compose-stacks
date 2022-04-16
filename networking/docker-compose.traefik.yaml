@@ -53,9 +53,8 @@ services:
       networking:
         ipv4_address: ${WGNETIP}
       traefik:
-      hostnet:
-    # ports:
-    #   - 51820:51820/udp
+    ports:
+      - 51820:51820/udp
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.wireguard.entrypoints=web-secure"
@@ -83,6 +82,3 @@ networks:
       config:
       - subnet: 172.20.2.0/24
         gateway: 172.20.2.1
-  hostnet:
-    external:
-      name: host
